@@ -7,19 +7,36 @@ public class EnemyHealth : MonoBehaviour
     public int maxHealth = 3;
     private int currentHealth;
 
+    private bool hasBeenHit=false;
+    private Animator animator;
+
+
     private void Start()
     {
+        animator = GetComponent<Animator>();
+        animator.speed = 1.5f;
         currentHealth = maxHealth;
     }
 
     public void TakeDamage()
     {
+        if (!hasBeenHit)
+        {
+            soundManager.instance.PlayDamageSound();
+            Debug.Log("chal rha ha");
+            animator.SetTrigger("HitTrigger");
+        }
+        
         currentHealth--;
         GameEvents.EnemyHealthUpdate("abdullah", 3);
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            soundManager.instance.PlayKillSound();
+            animator.SetTrigger("DeathTrigger");
+            Destroy(gameObject, 2f);
             Debug.Log("Enemy Destroy");
+            //Destroy(gameObject);
+            //Debug.Log("Enemy Destroy");
         }
     }
 

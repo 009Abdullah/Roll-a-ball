@@ -8,7 +8,7 @@ public class BulletTrigger : MonoBehaviour
     public delegate void PickupCollected();
     public static event PickupCollected OnPickupCollected;
 
-    public delegate void EnemyDestroyed(GameObject enemy);
+     public delegate void EnemyDestroyed(GameObject enemy);
     public static event EnemyDestroyed OnEnemyDestroyed;
 
 

@@ -8,11 +8,12 @@ public class CharacterController : MonoBehaviour
     public float rotateSpeed = 10f;
     public GameObject bulletPrefab;
     public Transform muzzleTransform;
-    public float bulletSpeed = 50f;
+    public float bulletSpeed = 500f;
 
     private Animator animator;
     private Rigidbody rigidbody;
     private bool isShooting;
+
 
     void Start()
     {
@@ -32,7 +33,7 @@ public class CharacterController : MonoBehaviour
         {
             isShooting = true;
             Shoot();
-            //StartCoroutine(stopAnimation());
+            
         }
         else if (horizontal != 0f || vertical != 0f)
         {
@@ -48,43 +49,37 @@ public class CharacterController : MonoBehaviour
 
     void Move(float horizontal, float vertical)
     {
-        // Move the character
         Vector3 direction = new Vector3(horizontal, 0f, vertical);
         direction = Quaternion.Euler(0f, Camera.main.transform.eulerAngles.y, 0f) * direction;
-        //direction.Normalize();
+
         rigidbody.MovePosition(transform.position + direction * moveSpeed * Time.deltaTime);
 
-        // Rotate the character
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
 
-        // Set the animator parameters
         animator.SetFloat("Speed", direction.magnitude);
     }
 
     void Idle()
     {
-        // Set the animator parameters
+
         animator.SetFloat("Speed", 0f);
     }
 
     void Shoot()
     {
-        // Spawn the bullet
+        soundManager.instance.PlayHitSound();
         GameObject bullet = Instantiate(bulletPrefab, muzzleTransform.position, muzzleTransform.rotation);
 
-        // Add velocity to the bullet
         Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
         bulletRigidbody.velocity = muzzleTransform.forward * bulletSpeed;
 
-        // Play the shooting animation
+        
+
         animator.SetTrigger("isShoot");
 
+        Destroy(bullet, 1f);
+
     }
-    //IEnumerator stopAnimation()
-    //{
-    //    yield return new WaitForSeconds(.3f);
-    //    animator.SetBool("isShoot", false);
-    //    Idle();
-    //}
+
 }

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public static class ScoreController
 {
+    
     private static int m_Score = 0;
 
     public static int Score => m_Score;

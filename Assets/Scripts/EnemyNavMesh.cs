@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class EnemyNavMesh : MonoBehaviour
 {
 
-
     private NavMeshAgent navMeshAgent;
 
     [SerializeField] private Vector3 startLocation;
@@ -19,7 +18,6 @@ public class EnemyNavMesh : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         startLocation = transform.position;
         targetLocation = new Vector3(-8.494f, 0.15f, -8.21f);
-//        SetDestination(targetLocation);
     }
 
 
@@ -47,21 +45,6 @@ public class EnemyNavMesh : MonoBehaviour
         NavMesh.SamplePosition(destination, out hit, 10f, NavMesh.AllAreas);
         navMeshAgent.SetDestination(hit.position);
     }
-
-
-    //private NavMeshAgent navMeshAgent;
-    //[SerializeField] private Transform movePositionTransform;
-
-    //private void Awake()
-    //{
-    //    navMeshAgent = GetComponent<NavMeshAgent>();
-
-    //}
-    //private void Update()
-    //{
-    //    navMeshAgent.destination = movePositionTransform.position;
-    //}
-
 
 
 }
