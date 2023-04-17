@@ -10,6 +10,7 @@ public class EnemyHealth : MonoBehaviour
     private bool hasBeenHit=false;
     private Animator animator;
 
+    public ParticleSystem enemyParticles;
 
     private void Start()
     {
@@ -33,12 +34,18 @@ public class EnemyHealth : MonoBehaviour
         {
             soundManager.instance.PlayKillSound();
             animator.SetTrigger("DeathTrigger");
+            enemyParticles.gameObject.SetActive(true);
             Destroy(gameObject, 2f);
             Debug.Log("Enemy Destroy");
             //Destroy(gameObject);
             //Debug.Log("Enemy Destroy");
         }
+        else
+        {
+            enemyParticles.gameObject.SetActive(false);
+        }
     }
+
 
     public bool IsDead()
     {

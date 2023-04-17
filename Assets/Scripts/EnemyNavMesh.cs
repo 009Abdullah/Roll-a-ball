@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyNavMesh : MonoBehaviour
 {
-
+    [SerializeField] private float moveSpeed = 2f;
     private NavMeshAgent navMeshAgent;
 
     [SerializeField] private Vector3 startLocation;
@@ -16,6 +16,7 @@ public class EnemyNavMesh : MonoBehaviour
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent.speed = moveSpeed;
         startLocation = transform.position;
         targetLocation = new Vector3(-8.494f, 0.15f, -8.21f);
     }
@@ -42,8 +43,8 @@ public class EnemyNavMesh : MonoBehaviour
     void SetDestination(Vector3 destination)
     {
         NavMeshHit hit;
-        NavMesh.SamplePosition(destination, out hit, 10f, NavMesh.AllAreas);
-        navMeshAgent.SetDestination(hit.position);
+         NavMesh.SamplePosition(destination, out hit, 10f, NavMesh.AllAreas);
+         navMeshAgent.SetDestination(hit.position);
     }
 
 

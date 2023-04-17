@@ -14,6 +14,7 @@ public class CharacterController : MonoBehaviour
     private Rigidbody rigidbody;
     private bool isShooting;
 
+    public Joystick joystick;
 
     void Start()
     {
@@ -24,8 +25,11 @@ public class CharacterController : MonoBehaviour
     void Update()
     {
         // Get input from the player
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        //float horizontal = Input.GetAxis("Horizontal");
+        //float vertical = Input.GetAxis("Vertical");
+
+        float horizontal = joystick.Horizontal;
+        float vertical = joystick.Vertical;
         bool shoot = Input.GetKeyDown(KeyCode.Space);
 
         // Update the character's state based on input
